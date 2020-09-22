@@ -1,0 +1,63 @@
+<div class="container-fluid p-4">
+    <div class="row" >
+      <div class="col-sm-2">
+        Filters
+        <select class="custom-select" id="inputGroupSelect01" (change)="sort($event)">
+          <option value="High" selected>High to Low Price</option>
+          <option value="Low">Low to High Price</option>
+        </select>
+      </div>
+      <div class="col-sm-10">
+        <div class="media my-2" *ngFor="let products of allProductsList">
+          <div class="col-sm-4">
+            <img
+              class="align-self-start mr-3"
+              style="width: 12rem"
+              src="{{ products.ListImagePath }}"
+              alt="Generic placeholder image"
+            />
+          </div>
+          <div class="col-sm-5">
+            <div class="media-body pl-4">
+              <em>
+                <h5 class="mt-0">{{ products.ProductTitle }}</h5></em
+              >
+              <p>
+                <em>Collection: {{ products.Collection }}</em>
+              </p>
+              <p>
+                <em>StyleName: {{ products.StyleName }}</em>
+              </p>
+              <p>
+                <em>StyleNumber: {{ products.StyleNumber }}</em>
+              </p>
+              <p>
+                <em>NetQuantity: {{ products.NetQuantity }}</em>
+              </p>
+              <p>
+                <em>ProductCode: {{ products.ProductCode }}</em>
+              </p>
+              <p>
+                <em>AvailableSizes: {{ products.AvailableSizes }}</em>
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-3 p-0">
+            <div class="media-body">
+              <em
+                ><h5 class="mt-0">
+                  Price: {{ products.Price | currency: "USD" }}
+                </h5></em
+              >
+              <em>
+                <span>
+                  <a routerLink="/feedback">FeedBack </a> about this product
+                </span>
+              </em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

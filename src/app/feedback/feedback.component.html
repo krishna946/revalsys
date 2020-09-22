@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="row justify-content-center mt-4">
+    <div class="col-6">
+      <div class="jumbotron px-5 py-2">
+        
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-sm btn-secondary" routerLink="/list">back</button>
+        </div>
+        <form
+          name="form"
+          (ngSubmit)="f.form.valid && onSubmit()"
+          #f="ngForm"
+          novalidate
+        >
+          <div class="form-group">
+            <label for="username">User Name</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="model.username"
+              #username="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && username.invalid }"
+              name="username"
+              required
+            />
+            <div class="invalid-feedback">
+              <div>Username is Required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              [(ngModel)]="model.email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              #email="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+              name="email"
+              required
+              [pattern]="emailPattern"
+            />
+            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+              <div *ngIf="email.errors.required">email is required</div>
+              <div
+                *ngIf="email.errors && f.submitted"
+                [ngClass]="'error'"
+              >
+                <div *ngIf="email.errors.pattern">
+                  Email not valid.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phonenumber">Phone Number</label>
+            <input
+              type="tel"
+              class="form-control"
+              [pattern]="mobNumberPattern"
+              [(ngModel)]="model.phonenumber"
+              #phonenumber="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && phonenumber.invalid }"
+              name="phonenumber"
+              required
+            />
+            <div class="invalid-feedback">
+              <div
+                *ngIf="phonenumber.errors && f.submitted"
+                [ngClass]="'error'"
+              >
+                <div *ngIf="phonenumber.errors.pattern">
+                  Please Enter 10 Digit Mobile Number.
+                </div>
+              </div>
+            </div>
+            <div
+              class="text-danger"
+              *ngIf="
+                (phonenumber.touched || f.submitted) &&
+                phonenumber.errors?.required
+              "
+            >
+              Phone number is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="feedback">Please Leave Your Feedback below</label>
+            <textarea
+              cols="35"
+              rows="8"
+              placeholder="Question Text"
+              class="form-control"
+              [(ngModel)]="model.feedback"
+              #feedback="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && feedback.invalid }"
+              name="feedback"
+              required
+            ></textarea>
+            <div class="invalid-feedback">
+              <div>Feedback is Required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-sm px-4 mr-2">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
