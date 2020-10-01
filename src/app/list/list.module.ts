@@ -1,15 +1,17 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ListRoutingModule } from './list-routing.module';
 import { ListComponent } from './list.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [ListComponent],
   imports: [
     CommonModule,
-    ListRoutingModule
+    ListRoutingModule,
+    NgxSpinnerModule
   ]
 })
 export class ListModule { }

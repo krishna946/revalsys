@@ -7,7 +7,8 @@ import { Injectable } from '@angular/core';
 export class ProductsService {
 
   constructor(public http:HttpClient) { }
+  URL='../assets/sampleData.json';
   getProducts() {
-    return this.http.get('../assets/sampleData.json')
+    return this.http.get(this.URL)
   }
 }

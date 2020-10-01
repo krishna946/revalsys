@@ -2,13 +2,14 @@
   <div class="row justify-content-center mt-4">
     <div class="col-6">
       <div class="jumbotron px-5 py-2">
-        
         <div class="d-flex justify-content-end">
-          <button class="btn btn-sm btn-secondary" routerLink="/list">back</button>
+          <button class="btn btn-sm btn-secondary" routerLink="/list">
+            back
+          </button>
         </div>
         <form
           name="form"
-          (ngSubmit)="f.form.valid && onSubmit()"
+          (ngSubmit)="f.form.valid && onSubmit(f)"
           #f="ngForm"
           novalidate
         >
@@ -21,10 +22,18 @@
               #username="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && username.invalid }"
               name="username"
+              minlength="4"
               required
+              (keypress)="ValidateAlpha($event)"
             />
-            <div class="invalid-feedback">
-              <div>Username is Required</div>
+            <div
+              class="invalid-feedback"
+              *ngIf="f.submitted && username.invalid"
+            >
+              <div *ngIf="username.errors.required">Username is Required</div>
+            </div>
+            <div class="invalid-feedback" *ngIf="username.errors?.minlength">
+              Name must be at least 4 characters long.
             </div>
           </div>
 
@@ -43,13 +52,8 @@
             />
             <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
               <div *ngIf="email.errors.required">email is required</div>
-              <div
-                *ngIf="email.errors && f.submitted"
-                [ngClass]="'error'"
-              >
-                <div *ngIf="email.errors.pattern">
-                  Email not valid.
-                </div>
+              <div *ngIf="email.errors && f.submitted" [ngClass]="'error'">
+                <div *ngIf="email.errors.pattern">Email not valid.</div>
               </div>
             </div>
           </div>
@@ -58,12 +62,14 @@
             <input
               type="tel"
               class="form-control"
+              ng-pattern=""
               [pattern]="mobNumberPattern"
               [(ngModel)]="model.phonenumber"
               #phonenumber="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && phonenumber.invalid }"
               name="phonenumber"
               required
+              (keypress)="isInputNUmber($event)"
             />
             <div class="invalid-feedback">
               <div
@@ -71,16 +77,13 @@
                 [ngClass]="'error'"
               >
                 <div *ngIf="phonenumber.errors.pattern">
-                  Please Enter 10 Digit Mobile Number.
+                  Please Enter 10 Digit Mobile Number starts with (6-9).
                 </div>
               </div>
             </div>
             <div
               class="text-danger"
-              *ngIf="
-                (phonenumber.touched || f.submitted) &&
-                phonenumber.errors?.required
-              "
+              *ngIf="f.submitted && phonenumber.errors?.required"
             >
               Phone number is required
             </div>
@@ -89,15 +92,19 @@
             <label for="feedback">Please Leave Your Feedback below</label>
             <textarea
               cols="35"
-              rows="8"
+              rows="4"
               placeholder="Question Text"
               class="form-control"
               [(ngModel)]="model.feedback"
               #feedback="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && feedback.invalid }"
               name="feedback"
+              minlength="3"
               required
             ></textarea>
+            <div class="invalid-feedback" *ngIf="feedback.errors?.minlength">
+              Feedback must be at least 3 characters long.
+            </div>
             <div class="invalid-feedback">
               <div>Feedback is Required</div>
             </div>

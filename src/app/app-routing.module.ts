@@ -1,5 +1,3 @@
-import { ListModule } from './list/list.module';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FeedbackComponent } from './feedback/feedback.component';
